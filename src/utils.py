@@ -30,7 +30,7 @@ def window_lin_reg(x: np.ndarray, y: np.ndarray, w: np.ndarray) -> Tuple[np.ndar
     sxy = window_sum(x * y, w)
 
     # Avoid warnings
-    with np.errstate(divide='ignore', invalid='ignore'):
+    with np.errstate(divide="ignore", invalid="ignore"):
         slope = (n * sxy - sx * sy) / (n * sx2 - sx ** 2)
         intercept = (sy - slope * sx) / n
 

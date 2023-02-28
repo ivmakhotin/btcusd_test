@@ -19,11 +19,11 @@ def get_model() -> cb.CatBoostRegressor:
         depth=6,
         verbose=10,
         random_seed=0x1a1a1a1,
-        eval_metric='R2',
+        eval_metric="R2",
         iterations=500,
         learning_rate=0.005,
         bagging_temperature=0.1,
-        task_type=config['device']
+        task_type=config["device"]
     )
 
 def evaluate_model(data_path: Path, result_path: Path) -> None:
@@ -45,7 +45,7 @@ def evaluate_model(data_path: Path, result_path: Path) -> None:
     r2_val = r2_score(y_val, model.predict(X_val))
     r2_test = r2_score(y_test, model.predict(X_test))
     
-    logger.info(f'r2_train = {r2_train:.5f}, r2_val = {r2_val:.5f}, r2_test = {r2_test:.5f}')
+    logger.info(f"r2_train = {r2_train:.5f}, r2_val = {r2_val:.5f}, r2_test = {r2_test:.5f}")
 
 def train_model(data_path: Path, result_path: Path) -> None:
     """
