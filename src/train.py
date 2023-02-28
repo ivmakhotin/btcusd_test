@@ -10,7 +10,7 @@ from src.utils import get_config
 
 
 def get_model() -> cb.CatBoostRegressor:
-    """Creates and returns CatBoostRegressor model with tuned parameters
+    """Creates and returns a CatBoostRegressor model with tuned hyperparameters
 
     Returns:
         CatBoostRegressor model with tuned parameters
@@ -31,12 +31,12 @@ def get_model() -> cb.CatBoostRegressor:
 
 
 def evaluate_model(data_path: Path, return_data_path: Path) -> None:
-    """Splits data on 20% test, 20% val, 60% train. Trains model
-    and prints r2_scores for each part of data.
+    """Splits data on 20% test, 20% val, 60% train. Trains the model
+    and prints r2_scores for each part of the data.
 
     Args:
-        data_path: path to a file with order book data and trades data
-        return_data_path: path to a file with 30 sec relative return data
+        data_path: a path to the file with order book and trades data
+        return_data_path: a path to the file with 30 sec relative return data
     """
 
     _, X = get_features(data_path)
@@ -67,8 +67,8 @@ def train_model(data_path: Path, return_data_path: Path) -> None:
     """Trains a model on the whole train data and saves the model.
 
     Args:
-        data_path: path to a file with order book data and trades data
-        return_data_path: path to a file with 30 sec relative return data
+        data_path: a path to the file with order book and trades data
+        return_data_path: a path to the file with 30 sec relative return data
     """
 
     _, X = get_features(data_path)

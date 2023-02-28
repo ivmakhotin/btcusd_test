@@ -8,7 +8,7 @@ from src.load_data import get_features
 
 
 def load_model(model_path: Path) -> cb.CatBoostRegressor:
-    """Reads from disk and returns trained CatBoostRegressor"""
+    """Reads a model from the disk and returns trained CatBoostRegressor"""
 
     logger.info("Loading model...")
     model = cb.CatBoostRegressor()
@@ -17,12 +17,12 @@ def load_model(model_path: Path) -> cb.CatBoostRegressor:
 
 
 def predict(data_path: Path, model_path: Path, forecast_path: Path) -> None:
-    """Calculates predictions with trained model and saves it as .h5 file
+    """Calculates predictions with a trained model and saves it as .h5 file
 
     Args:
-        data_path: path to a file with order book data and trades data
-        model_path: path to a file with trained model
-        forecast_path: path to save result as .h5 file
+        data_path: a path to the file with order book and trades data
+        model_path: a path to the file with the trained model
+        forecast_path: a path to save the result as .h5 file
     """
 
     ts, X = get_features(data_path)

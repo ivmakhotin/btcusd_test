@@ -14,12 +14,12 @@ def main():
     parser.add_argument(
         "--train_folder_path",
         type=str,
-        help="Specify the path to the folder with files data.h5 and result.h5. Required in fitting mode.",
+        help="Specify the path to the folder with files data.h5 and result.h5. Required in the fitting mode.",
     )
     parser.add_argument(
         "--data_path",
         type=str,
-        help="Specify the path to the .h5 file with the data to forecast. Required in forecasting mode.",
+        help="Specify the path to the .h5 file with the data to forecast. Required in the forecasting mode.",
     )
     args = parser.parse_args()
 

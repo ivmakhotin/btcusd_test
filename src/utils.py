@@ -24,15 +24,15 @@ def window_sum(x: np.ndarray, w: int) -> np.ndarray:
 def window_lin_reg(
     x: np.ndarray, y: np.ndarray, w: int
 ) -> Tuple[np.ndarray, np.ndarray]:
-    """Calculates rolling window 1d linear regression.
+    """Calculates rolling window 1d linear regression
 
     Args:
         x: 1d array
         y: 1d array
         w: window size
-
+ 
     Returns:
-        slope: each elememt of this 1d array related to slope of linear reg for corresponding window
+        slope: each elememt of this 1d array related to slope of linear regression for corresponding window
         intercept: each elememt of this 1d array related to intercept of linear reg for corresponding window
     """
 
@@ -62,7 +62,7 @@ def window_lin_reg(
 
 
 def get_config() -> dict:
-    """Reads from disk and returns config file
+    """Reads the config file from the disk and returns it
 
     Returns:
         dict with config data

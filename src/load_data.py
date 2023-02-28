@@ -9,25 +9,30 @@ from src.utils import window_lin_reg
 
 
 def get_features(data_path: Path) -> Tuple[np.ndarray, np.ndarray]:
-    """Loads file with order book data and trades data and calculating fearures
+    """Loads a file with order book and trades data then calculates features
 
     Args:
-        data_path: path to a file with order book data and trades data
+        data_path: a path to the file with order book and trades data
 
     Returns:
         Numpy arrary with timestamps (n_samples,)
         Numpy arrary with calculated features (n_samples, n_features)
     """
 
-    data_file = h5py.File(str(data_path), "r")
-
     logger.info("Calculating features..")
+    
+    # loading data
+    data_file = h5py.File(str(data_path), "r")
     ob_ts = np.array(data_file["OB/TS"])
     trades_ts = np.array(data_file["Trades/TS"])
 
+    # calulcating indices of the most recent trades
     trade_idxs = (np.searchsorted(trades_ts, ob_ts, side="right") - 1).astype(int)
+
     most_recent_amount = np.array(data_file["Trades/Amount"])[trade_idxs]
+    
     most_recent_price = np.array(data_file["Trades/Price"])[trade_idxs]
+
     mid_price = (
         np.array(data_file["OB/Ask"]).min(axis=1)
         + np.array(data_file["OB/Bid"]).max(axis=1)
@@ -38,6 +43,7 @@ def get_features(data_path: Path) -> Tuple[np.ndarray, np.ndarray]:
         + np.array(data_file["OB/Bid"])[:, 0] * np.array(data_file["OB/BidV"])[:, 0]
     ) / (np.array(data_file["OB/AskV"])[:, 0] + np.array(data_file["OB/BidV"])[:, 0])
 
+    # calculates relative return forecasts with a linear model fitted on mid prices within windows of different sizes
     window_sizes = [5, 10, 20, 30]
     relative_preds_by_trends = []
     slopes_features = []
@@ -96,11 +102,11 @@ def get_features(data_path: Path) -> Tuple[np.ndarray, np.ndarray]:
 
 
 def get_target(return_data_path: Path) -> np.ndarray:
-    """Loads file with 30 sec relative return data ((mid(t + 30s) - mid(t)) / mid(t))
+    """Loads a file with 30 sec relative return data ((mid(t + 30s) - mid(t)) / mid(t))
     and returns np.ndarray
 
     Args:
-        return_data_path: path to a file with 30 sec relative return data
+        return_data_path: a path to the file with 30 sec relative return data
 
     Returns:
         Numpy arrary with 30 sec relative return data (n_samples,)
