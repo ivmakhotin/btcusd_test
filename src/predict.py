@@ -2,6 +2,7 @@ from pathlib import Path
 
 import h5py
 import catboost as cb
+from loguru import logger
 
 from src.load_data import get_features
 
@@ -9,6 +10,7 @@ from src.load_data import get_features
 def load_model(model_path: Path) -> cb.CatBoostRegressor:
     """Reads from disk and returns trained CatBoostRegressor"""
 
+    logger.info("Loading model...")
     model = cb.CatBoostRegressor()
     model.load_model(model_path)
     return model
@@ -25,7 +27,11 @@ def predict(data_path: Path, model_path: Path, forecast_path: Path) -> None:
 
     ts, X = get_features(data_path)
     model = load_model(model_path)
+
+    logger.info("Making predicitons...")
     predict = model.predict(X)
+
+    logger.info("Saving predicitons...")
     forecast_file = h5py.File(str(forecast_path), "w")
     group = forecast_file.create_group("Return")
     group.create_dataset(name="TS", shape=ts.shape, dtype=ts.dtype, data=ts)

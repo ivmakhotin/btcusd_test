@@ -78,8 +78,10 @@ def train_model(data_path: Path, return_data_path: Path) -> None:
 
     model = get_model()
     train = cb.Pool(X, y)
+    logger.info("Training has started...")
     model.fit(train)
 
+    logger.info("Saving model...")
     model_path = Path(config["model_path"])
     model_path.parent.mkdir(parents=True, exist_ok=True)
     model.save_model(str(model_path))

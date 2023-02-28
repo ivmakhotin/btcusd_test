@@ -106,5 +106,6 @@ def get_target(return_data_path: Path) -> np.ndarray:
         Numpy arrary with 30 sec relative return data (n_samples,)
     """
 
+    logger.info("Reading target..")
     return_data_file = h5py.File(str(return_data_path), "r")
     return np.array(return_data_file["Return/Res"])
