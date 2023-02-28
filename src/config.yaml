@@ -1,0 +1,5 @@
+device: GPU
+data_filename: data.h5
+result_filename: result.h5
+model_path: models/trained_model.cbm
+forecast_result_path: forecast.h5
